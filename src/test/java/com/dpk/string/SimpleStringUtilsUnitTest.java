@@ -13,4 +13,12 @@ class SimpleStringUtilsUnitTest {
         String reversed = SimpleStringUtils.reverse(testString);
         assertEquals(expectedString, reversed);
     }
+
+    @Test
+    void canReverseNumericText() {
+        String testString = "1234";
+        String expectedString = "4321";
+        String reversed = SimpleStringUtils.reverse(testString);
+        assertEquals(expectedString, reversed);
+    }
 }
