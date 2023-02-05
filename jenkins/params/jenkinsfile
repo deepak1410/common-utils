@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(defaultValue: false, description: "Dry run?", name:"dryRun")
+        string(defaultValue: "main", description: "Which Branch?", name:"branch")
+        choice(choices:["Dev", "QA", "Pre-prod", "Prod"], description: "Which environment?", name:"env")
+    }
+
+    environment {
+        def timeout = 3600
+        def projectName = "Simple Utils"
+        def runTests = false
+    }
+
+    stages {
+        
+        stage("Pre-Build") {
+            steps() {
+
+                script {
+                    if(params.dryRun == true) {
+                        echo "The build will do just dry run"
+                        return
+                    } else {
+                        echo "Running Build Number: ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                    }
+
+                    echo "The build is running"
+                }
+            }
+        }
+
+
+        stage("Build") {
+            steps() {
+                echo "Dry run?: ${params.dryRun}"
+                echo "Branch to deploy: ${params.branch}"
+                echo "Environment name: ${params.env}"
+            }
+        }
+
+        stage("Post-Build") {
+            steps() {
+                echo "Time out (in seconds): ${timeout}"
+                echo "Run tests? ${runTests}"
+                printProjectName("${projectName}")
+            }
+
+        }
+
+    }
+}
+
+def printProjectName(String projectName) {
+    echo "Build is running for project: ${projectName}"
+}
