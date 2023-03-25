@@ -10,7 +10,7 @@ pipeline {
 
     stage("Test") {
       steps() {
-        sh "mvn test -Dtest='com.dpk.collections.**.*'"
+        sh "mvn test -Dtest=com.dpk.list.**.*Test,com.dpk.set.**.*Test"
       }
       post {
         always {

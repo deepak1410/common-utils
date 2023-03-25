@@ -1,4 +1,4 @@
-package com.dpk.designpatterns.strategy;
+package com.dpk.strategy;
 
 public class TransportClient {
 

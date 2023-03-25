@@ -1,6 +1,5 @@
 package com.dpk.list;
 
-import com.dpk.list.SimpleListUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
