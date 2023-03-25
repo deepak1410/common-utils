@@ -1,10 +1,10 @@
-package com.dpk.collections;
+package com.dpk.list;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class SimpleCollectionUtils {
+public class SimpleListUtils {
 
     public static int findLargest(List<Integer> list) {
         Optional<Integer> optionalNumber = list.stream().max(Comparator.comparingInt(Integer::intValue));
