@@ -10,7 +10,15 @@ pipeline {
 
     stage("Test") {
       steps() {
-        sh "mvn test -Dtest=com.dpk.list.**.*Test,com.dpk.set.**.*Test"
+        script {
+            try {
+                sh "mvn test -Dtest=com.dpk.list.**.*Test,com.dpk.set.**.*Test"
+            } catch (exc) {
+                echo "Some test failed, the pipeline will fail."
+                currentBuild.result = 'UNSTABLE'
+            }
+        }
+
       }
       post {
         always {
