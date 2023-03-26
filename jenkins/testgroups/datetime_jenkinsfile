@@ -14,10 +14,10 @@ pipeline {
             try {
                 sh "mvn test -Dtest='com.dpk.datetime.**.*'"
             } catch (ex) {
-                echo "Got some test failures, the pipeline will be marked unstable."
-                currentBuild.result = 'UNSTABLE'
 
                 def testResult = build.testResultAction
+                echo "testResultAction ${testResultAction}"
+                echo "testResult ${testResult}"
                 if ( testResult != null ) {
                     def testsTotal = testResult.totalCount
                     def testsFailed = testResult.failCount
@@ -28,6 +28,9 @@ pipeline {
                     msg.setSubject(subject)
                     echo "Test report:" + subject
                 }
+
+                echo "Got some test failures, the pipeline will be marked unstable."
+                currentBuild.result = 'UNSTABLE'
 
             }
         }
