@@ -14,7 +14,7 @@ pipeline {
             try {
                 sh "mvn test -Dtest=com.dpk.list.**.*Test,com.dpk.set.**.*Test"
             } catch (exc) {
-                echo "Some test failed, the pipeline will fail."
+                echo "Got some test failures, the pipeline will be marked unstable."
                 currentBuild.result = 'UNSTABLE'
             }
         }
