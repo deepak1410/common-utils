@@ -24,8 +24,9 @@ pipeline {
 
                         def subject = build.externalizableId + " : Tests passed " + testsPassed + ", out of " + testsTotal
                         msg.setSubject(subject)
+                        echo subject
                       }
-                      echo subject
+
                 '''
             } catch (ex) {
                 echo "Got some test failures, the pipeline will be marked unstable."
