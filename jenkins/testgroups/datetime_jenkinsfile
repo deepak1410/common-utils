@@ -13,6 +13,20 @@ pipeline {
         script {
             try {
                 sh "mvn test -Dtest='com.dpk.datetime.**.*'"
+
+                sh '''
+                    def testResult = build.testResultAction
+                      if ( testResult != null ) {
+                        def testsTotal = testResult.totalCount
+                        def testsFailed = testResult.failCount
+                        def testsSkipped = testResult.skipCount
+                        def testsPassed = testsTotal - testsFailed - testsSkipped
+
+                        def subject = build.externalizableId + " : Tests passed " + testsPassed + ", out of " + testsTotal
+                        msg.setSubject(subject)
+                      }
+                      echo subject
+                '''
             } catch (ex) {
                 echo "Got some test failures, the pipeline will be marked unstable."
                 currentBuild.result = 'UNSTABLE'
