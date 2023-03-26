@@ -13,6 +13,9 @@ pipeline {
         script {
             try {
                 sh "mvn test -Dtest='com.dpk.datetime.**.*'"
+            } catch (ex) {
+                echo "Got some test failures, the pipeline will be marked unstable."
+                currentBuild.result = 'UNSTABLE'
 
                 sh '''
                     def testResult = build.testResultAction
@@ -24,13 +27,10 @@ pipeline {
 
                         def subject = build.externalizableId + " : Tests passed " + testsPassed + ", out of " + testsTotal
                         msg.setSubject(subject)
-                        echo subject
+                        echo "Test report:" + subject
                       }
 
                 '''
-            } catch (ex) {
-                echo "Got some test failures, the pipeline will be marked unstable."
-                currentBuild.result = 'UNSTABLE'
             }
         }
       }
